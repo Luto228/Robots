@@ -17,7 +17,7 @@ class Robot:
         print(f'{self.name} lvl: {self.lvl}')
     
     def attack(self, other):
-        other.health -= self.lvl
+        other.health = int(other.health - self.lvl)
         print(f'{self.name} нанес атаку роботу {other.name}, у {other.name} \n осталось {int(other.health)} !')
     
     def loser(self, other):
@@ -29,7 +29,7 @@ class AssasinRobot(Robot):
     def __init__(self, name, lvl, health):
         super().__init__(name, lvl, health)
 
-        self.lvl = lvl * 1.7
+        self.lvl = int(lvl * 1.7)
 
         self.health = health // 2
 
@@ -41,9 +41,9 @@ class TitanRobot(Robot):
     def __init__(self, name, lvl, health):
         super().__init__(name, lvl, health)
 
-        self.lvl = lvl // 2.01
+        self.lvl = int(lvl // 2.01)
 
-        self.health = health * 2.3
+        self.health = int(health * 2.3)
 
         print(f'Роботу {self.name}, выпал класс Титана!🦾')
 
@@ -73,7 +73,7 @@ class FocusRobot(Robot):
     def PlusHealth(self):
         self.health += 40
 
-        print('И у него +40 хп! ❤️❤️❤️')
+        print('И у него +40 хп!❤️❤️❤️')
 
     def MinusHealth(self):
         self.health -= 40
@@ -97,14 +97,14 @@ class VampirRobot(Robot):
         print(f'{self.name} выпад класс Вампира!🧛')
     def attack(self, other):
         Steal = random.choice([True, False])
-        other.health -= self.lvl
+        other.health = int(other.health - self.lvl)
         if Steal:
             self.health += self.lvl // 2
             print(f'{self.name} нанес удар в {other.name} нанеся {self.lvl} и украв {self.lvl // 2} \n у {self.name} {self.health} ХП!🧛')
         else:
             print(f'{self.name} нанес атаку роботу {other.name}! Кража не удалась!')
         
-        print(f'У {other.name} осталось {other.health}')
+        print(f'У {other.name} осталось {int(other.health)}')
 
 class CriticalRobot(Robot):
     def __init__(self, name, lvl, health):
@@ -115,19 +115,20 @@ class CriticalRobot(Robot):
         Critical = random.random()
         if Critical <= 0.25:
             print(f'Критический удар от {self.name}!💯')
-            other.health -= self.lvl * 2
+            other.health = int(other.health - (self.lvl * 2))
+            print(f'У {other.name} всего {int(other.health)} ХП!')
         else:
-            other.health -= self.lvl
-        print(f'У {other.name} осталось {other.health} ХП')
+            other.health = int(other.health - self.lvl)
+            print(f'{self.name} нанес удар {other.name}! \n У {other.name} осталось {int(other.health)} ХП')
 
 class DoctorRobot(Robot):
     def __init__(self, name, lvl, health):
         super().__init__(name, lvl, health)
         print(f'{self.name} выпадает класс Медика!💊')
     def attack(self, other):
-        other.health -= self.lvl
+        other.health = int(other.health - self.lvl)
         self.health += 10
-        print(f'У {other.name} осталось {other.health} ХП!❤️')
+        print(f'У {other.name} осталось {int(other.health)} ХП!❤️')
 
 RobotsClasses = [
 
