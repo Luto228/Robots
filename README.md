@@ -21,6 +21,8 @@ Every battle features two robots, each randomly assigned one of the following cl
 | **🛡️ Titan** | Extremely durable but deals lower damage. (Health x2.3, Attack /2) |
 | **🎲 Focus (Magician)** | The wildcard. Randomly gains or loses stats upon creation. |
 | **🧛Vampir** | with a 50% chance after a hit, takes 1/2 of the damage dealt |
+| **💯CriticalRobot**| has a quarter chance to deal double damage |
+| **👨‍⚕️Medic** | Restores 10 HP with each hit |
 
 ## 🚀 How to Run
 

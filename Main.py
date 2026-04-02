@@ -2,10 +2,6 @@ import random
 
 import time
 
-RamLvl = random.randint(10, 100)
-
-RamLvl2 = random.randint(10, 100)
-
 FulRandom = []
 
 
@@ -37,7 +33,7 @@ class AssasinRobot(Robot):
 
         self.health = health // 2
 
-        print(f'Роботу {self.name}, выпал класс Ассасина! ')
+        print(f'Роботу {self.name}, выпал класс Ассасина!🥷')
 
 
 class TitanRobot(Robot):
@@ -49,14 +45,14 @@ class TitanRobot(Robot):
 
         self.health = health * 2.3
 
-        print(f'Роботу {self.name}, выпал класс Титана!')
+        print(f'Роботу {self.name}, выпал класс Титана!🦾')
 
 
 class FocusRobot(Robot):
 
     def __init__(self, name, lvl, health):
         super().__init__(name, lvl, health)
-        print(f'Роботу {self.name}, выпал класс Фокусника!')
+        print(f'Роботу {self.name}, выпал класс Фокусника!🃏')
 
         if self.health == 100:
             self.health += 40
@@ -77,38 +73,61 @@ class FocusRobot(Robot):
     def PlusHealth(self):
         self.health += 40
 
-        print('И у него +40 хп!')
+        print('И у него +40 хп! ❤️❤️❤️')
 
     def MinusHealth(self):
         self.health -= 40
 
-        print('Но у него минус 40 хп!')
+        print('Но у него минус 40 хп!💔💔💔 ')
 
     def PlusAttack(self):
         self.lvl = self.lvl * 2
 
-        print('И у него в 2 раза больше урона!')
+        print('И у него в 2 раза больше урона!💪💪💪')
 
     def MinusAttack(self):
         self.lvl = self.lvl // 2
 
-        print('И у него в 2 раза меньше урона!')
+        print('И у него в 2 раза меньше урона!😢😢😢')
 
 
-class Vampir(Robot):
+class VampirRobot(Robot):
     def __init__(self, name, lvl, health):
         super().__init__(name, lvl, health)
-        print(f'{self.name} выпад класс Вампира!')
+        print(f'{self.name} выпад класс Вампира!🧛')
     def attack(self, other):
         Steal = random.choice([True, False])
         other.health -= self.lvl
         if Steal:
             self.health += self.lvl // 2
-            print(f'{self.name} нанес удар в {other.name} нанеся {self.lvl} и украв {self.lvl // 2} \n у {self.name} {self.health} ХП!')
+            print(f'{self.name} нанес удар в {other.name} нанеся {self.lvl} и украв {self.lvl // 2} \n у {self.name} {self.health} ХП!🧛')
         else:
-            print(f'{self.name} нанес атаку роботу {other.name}!')
+            print(f'{self.name} нанес атаку роботу {other.name}! Кража не удалась!')
         
         print(f'У {other.name} осталось {other.health}')
+
+class CriticalRobot(Robot):
+    def __init__(self, name, lvl, health):
+        super().__init__(name, lvl, health)
+        print(f'{self.name} выпадает класс КритикРобот!😼')
+    
+    def attack(self, other):
+        Critical = random.random()
+        if Critical <= 0.25:
+            print(f'Критический удар от {self.name}!💯')
+            other.health -= self.lvl * 2
+        else:
+            other.health -= self.lvl
+        print(f'У {other.name} осталось {other.health} ХП')
+
+class DoctorRobot(Robot):
+    def __init__(self, name, lvl, health):
+        super().__init__(name, lvl, health)
+        print(f'{self.name} выпадает класс Медика!💊')
+    def attack(self, other):
+        other.health -= self.lvl
+        self.health += 10
+        print(f'У {other.name} осталось {other.health} ХП!❤️')
 
 RobotsClasses = [
 
@@ -118,7 +137,11 @@ RobotsClasses = [
 
     AssasinRobot,
 
-    Vampir
+    VampirRobot,
+
+    CriticalRobot,
+
+    DoctorRobot
 ]
 
 RandomName = ['Alex', 'Glorbo', 'Monster', 'King', 'SuperMan', 'Soloma', 'Master', 'Robo', 'XXX', 'IDK', 'Burher']
@@ -129,9 +152,12 @@ RamClasses = random.choice(RobotsClasses)
 
 RamClasses2 = random.choice(RobotsClasses)
 
-Robot1 = RamClasses(RamName, RamLvl, 100)
+Robot1Lvl = random.randint(20,50)
+Robot2Lvl = random.randint(20,50)
 
-Robot2 = RamClasses2(RamName2, RamLvl2, 100)
+Robot1 = RamClasses(RamName, Robot1Lvl, 100)
+
+Robot2 = RamClasses2(RamName2, Robot2Lvl, 100)
 
 while True:
 
