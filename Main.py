@@ -10,12 +10,6 @@ FulRandom = []
 
 
 class Robot:
-    name = None
-
-    lvl = None
-
-    attack = None
-
     def __init__(self, name, lvl, health):
         self.name = name
 
@@ -25,6 +19,13 @@ class Robot:
 
     def Print(self):
         print(f'{self.name} lvl: {self.lvl}')
+    
+    def attack(self, other):
+        other.health -= self.lvl
+        print(f'{self.name} нанес атаку роботу {other.name}, у {other.name} \n осталось {int(other.health)} !')
+    
+    def loser(self, other):
+        print(f'Битва окончена! У {self.name} 0 ХП! {other.name} выиграл!')
 
 
 class AssasinRobot(Robot):
@@ -34,9 +35,9 @@ class AssasinRobot(Robot):
 
         self.lvl = lvl * 1.7
 
-        self.health = health / 2
+        self.health = health // 2
 
-        print(f'Роботу {self.name}, выпал класс Ассасина!')
+        print(f'Роботу {self.name}, выпал класс Ассасина! ')
 
 
 class TitanRobot(Robot):
@@ -44,7 +45,7 @@ class TitanRobot(Robot):
     def __init__(self, name, lvl, health):
         super().__init__(name, lvl, health)
 
-        self.lvl = lvl / 2.01
+        self.lvl = lvl // 2.01
 
         self.health = health * 2.3
 
@@ -53,28 +54,9 @@ class TitanRobot(Robot):
 
 class FocusRobot(Robot):
 
-    def PlusHealth(self):
-        self.health += 40
-
-        print('И у него +40 хп!')
-
-    def MinusHealth(self):
-        self.health -= 40
-
-        print('Но у него минус 40 хп!')
-
-    def PlusAttack(self):
-        self.lvl = self.lvl * 2
-
-        print('И у него в 2 раза больше урона!')
-
-    def MinusAttack(self):
-        self.lvl = self.lvl / 2
-
-        print('И у него в 2 раза меньше урона!')
-
     def __init__(self, name, lvl, health):
         super().__init__(name, lvl, health)
+        print(f'Роботу {self.name}, выпал класс Фокусника!')
 
         if self.health == 100:
             self.health += 40
@@ -91,8 +73,42 @@ class FocusRobot(Robot):
 
         RamAt()
 
-        print(f'Роботу {self.name}, выпал класс Фокусника!')
+    
+    def PlusHealth(self):
+        self.health += 40
 
+        print('И у него +40 хп!')
+
+    def MinusHealth(self):
+        self.health -= 40
+
+        print('Но у него минус 40 хп!')
+
+    def PlusAttack(self):
+        self.lvl = self.lvl * 2
+
+        print('И у него в 2 раза больше урона!')
+
+    def MinusAttack(self):
+        self.lvl = self.lvl // 2
+
+        print('И у него в 2 раза меньше урона!')
+
+
+class Vampir(Robot):
+    def __init__(self, name, lvl, health):
+        super().__init__(name, lvl, health)
+        print(f'{self.name} выпад класс Вампира!')
+    def attack(self, other):
+        Steal = random.choice([True, False])
+        other.health -= self.lvl
+        if Steal:
+            self.health += self.lvl // 2
+            print(f'{self.name} нанес удар в {other.name} нанеся {self.lvl} и украв {self.lvl // 2} \n у {self.name} {self.health} ХП!')
+        else:
+            print(f'{self.name} нанес атаку роботу {other.name}!')
+        
+        print(f'У {other.name} осталось {other.health}')
 
 RobotsClasses = [
 
@@ -100,8 +116,9 @@ RobotsClasses = [
 
     TitanRobot,
 
-    AssasinRobot
+    AssasinRobot,
 
+    Vampir
 ]
 
 RandomName = ['Alex', 'Glorbo', 'Monster', 'King', 'SuperMan', 'Soloma', 'Master', 'Robo', 'XXX', 'IDK', 'Burher']
@@ -120,24 +137,18 @@ while True:
 
     time.sleep(1)
 
-    if Robot2.health > 0:
-        Robot2.health -= Robot1.lvl
+    if Robot1.health > 0:
+       Robot1.attack(Robot2)
 
-        print(f'{Robot1.name} нанес атаку роботу {Robot2.name}, у {Robot2.name} \n осталось {int(Robot2.health)} !')
-
-    if Robot2.health <= 0:
-        print(f'Битва закончена! У {Robot2.name} 0 хп!')
-
+    if Robot1.health <= 0:
+        Robot1.loser(Robot2)
         break
 
     time.sleep(1)
 
-    if Robot1.health > 0:
-        Robot1.health -= Robot2.lvl
+    if Robot2.health > 0:
+        Robot2.attack(Robot1)
 
-        print(f'{Robot2.name} нанес атаку роботу {Robot1.name}, у {Robot1.name} \n осталось {int(Robot1.health)} !')
-
-    if Robot1.health <= 0:
-        print(f'Битва закончена! У {Robot1.name} 0 хп!')
-
+    if Robot2.health <= 0:
+        Robot2.loser(Robot1)
         break
